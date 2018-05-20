@@ -1,8 +1,6 @@
 package se.kth.ict.carinspection.model;
 
-import se.kth.ict.carinspection.integration.InspectionPartDTO;
-import se.kth.ict.carinspection.integration.RegistrationNoDTO;
-import se.kth.ict.carinspection.integration.VehicleRegistry;
+import se.kth.ict.carinspection.integration.*;
 
 import java.util.ArrayList;
 
@@ -15,15 +13,20 @@ public class Inspection {
     private int currentPartIdx;
 
     /**
-     * Creates a new instance of an inspection.
+     * Creates a new instance of an inspection as long as the vehicle to be inspected has available parts to inspect.
      *
      * @param vehicleRegistrationNo The registration number of the vehicle that should be inspected.
-     * @param vehicleRegistry The registry containing all information about available inspections.
+     * @param vehicleRegistry       The registry containing all information about available inspections.
+     * @throws IllegalLicenseNumberException if the license number is illegal, this being if there is no available parts to inspect
+     *                              for the given license number.
      */
-    public Inspection(RegistrationNoDTO vehicleRegistrationNo, VehicleRegistry vehicleRegistry) {
-        this.inspections = vehicleRegistry.getInspections(vehicleRegistrationNo);
+    public Inspection(RegistrationNoDTO vehicleRegistrationNo, VehicleRegistry vehicleRegistry) throws IllegalLicenseNumberException {
+        try {
+            this.inspections = vehicleRegistry.getInspections(vehicleRegistrationNo);
+        } catch (NoPartsForInspectionException e) {
+            throw new IllegalLicenseNumberException(e.getRegistrationNumber());
+        }
         this.vehicleRegistrationNo = vehicleRegistrationNo;
-
         currentPartIdx = 0;
     }
 
@@ -33,16 +36,11 @@ public class Inspection {
      * @return The total cost of the current inspection. If there are no current inspections, return <code>-1</code>.
      */
     public double calculateCost() {
-
-        if (inspections == null) {
-            return -1;
-        } else {
-            double totalCost = 0;
-            for (InspectionPartDTO inspectionPart : inspections) {
-                totalCost += inspectionPart.getCost();
-            }
-            return totalCost;
+        double totalCost = 0;
+        for (InspectionPartDTO inspectionPart : inspections) {
+            totalCost += inspectionPart.getCost();
         }
+        return totalCost;
     }
 
     /**
@@ -59,7 +57,6 @@ public class Inspection {
     }
 
     /**
-     *
      * @return A list of all the parts included in the inspection.
      */
     public ArrayList<InspectionPartDTO> getInspections() {
@@ -67,7 +64,6 @@ public class Inspection {
     }
 
     /**
-     *
      * @return The registration number of the vehicle belonging to the inspection.
      */
     public RegistrationNoDTO getVehicleRegistrationNoDTO() {

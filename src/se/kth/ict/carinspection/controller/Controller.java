@@ -54,13 +54,15 @@ public class Controller {
     }
 
     /**
-     * Calculates the total cost of the inspection for a particular vehicle.
+     * Calculates the total cost of the inspection for a particular vehicle as long as the given license number is
+     * legal.
      *
      * @param registrationNo The registration number of the vehicle.
      * @return The cost of the inspection. Returns <code>-1</code> if there are no valid inspections for the specified
      * registration number.
+     * @throws IllegalLicenseNumberException if the given license number is illegal/not valid.
      */
-    public double calculateCost(RegistrationNoDTO registrationNo) {
+    public double calculateCost(RegistrationNoDTO registrationNo) throws IllegalLicenseNumberException {
         currentInspection = new Inspection(registrationNo, vehicleRegistry);
         inspectionResults = new InspectionResults(registrationNo);
         return currentInspection.calculateCost();

@@ -14,11 +14,7 @@ public class VehicleRegistry {
      */
     public VehicleRegistry() {
         vehicleList = new HashMap<>();
-
         ArrayList<InspectionPartDTO> partList = new ArrayList<>();
-        partList.add(new InspectionPartDTO("engine", 39.5));
-        partList.add(new InspectionPartDTO("tires", 80));
-        partList.add(new InspectionPartDTO("airbags", 100));
         addVehicle(new RegistrationNoDTO("KOS839"), partList);
     }
 
@@ -39,7 +35,12 @@ public class VehicleRegistry {
      * @param registrationNo The registration number of the vehicle.
      * @return A list of the inspections that should be made for the vehicle.
      */
-    public ArrayList<InspectionPartDTO> getInspections(RegistrationNoDTO registrationNo) {
-        return vehicleList.get(registrationNo);
+    public ArrayList<InspectionPartDTO> getInspections(RegistrationNoDTO registrationNo) throws NoPartsForInspectionException {
+        ArrayList<InspectionPartDTO> partsToInspect = this.vehicleList.get(registrationNo);
+        if (partsToInspect.isEmpty()) {
+            throw new NoPartsForInspectionException(registrationNo);
+        } else {
+            return vehicleList.get(registrationNo);
+        }
     }
 }

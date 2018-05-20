@@ -47,4 +47,13 @@ public class RegistrationNoDTO {
     public int hashCode() {
         return registrationNo.hashCode();
     }
+
+    /**
+     * Formats license number.
+     *
+     * @return The formatted license number.
+     */
+    public String toString() {
+        return this.registrationNo;
+    }
 }
