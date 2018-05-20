@@ -2,7 +2,7 @@ package se.kth.ict.carinspection.view;
 
 import se.kth.ict.carinspection.controller.Controller;
 import se.kth.ict.carinspection.integration.CCInformationDTO;
-import se.kth.ict.carinspection.integration.IllegalLicenseNumberException;
+import se.kth.ict.carinspection.model.IllegalLicenseNumberException;
 import se.kth.ict.carinspection.integration.InspectionPartDTO;
 import se.kth.ict.carinspection.integration.RegistrationNoDTO;
 import se.kth.ict.carinspection.util.DeveloperLogHandler;

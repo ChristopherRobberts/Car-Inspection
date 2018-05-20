@@ -1,4 +1,6 @@
-package se.kth.ict.carinspection.integration;
+package se.kth.ict.carinspection.model;
+
+import se.kth.ict.carinspection.integration.RegistrationNoDTO;
 
 /**
  * An exception class that is thrown when trying to start an inspection with an illegal registration number.
