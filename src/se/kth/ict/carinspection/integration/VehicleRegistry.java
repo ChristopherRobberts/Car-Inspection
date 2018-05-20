@@ -42,10 +42,11 @@ public class VehicleRegistry {
 
     /**
      * Checks the database if the specified registration number is present, and if it is, returns a list of all
-     * the inspections that should be made for that vehicle. If there is no match, return <code>null</code>.
+     * the inspections that should be made for that vehicle.
      *
      * @param registrationNo The registration number of the vehicle.
      * @return A list of the inspections that should be made for the vehicle.
+     * @throws NoPartsForInspectionException If the database returns an empty <code>ArrayList</code>.
      */
     public ArrayList<InspectionPartDTO> getInspections(RegistrationNoDTO registrationNo) throws NoPartsForInspectionException {
         ArrayList<InspectionPartDTO> partsToInspect = this.vehicleList.get(registrationNo);
