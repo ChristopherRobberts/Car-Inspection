@@ -27,7 +27,7 @@ public class View {
         this.contr = contr;
         errorMessageHandler = new ErrorMessageHandler();
         developerLogHandler = new DeveloperLogHandler();
-        this.contr.addVehicleInspectionResultsObserver(new VehiclePartResultsDisplay());
+        this.contr.addVehicleInspectionResultsObserver(new InspectionStatsView());
         this.sampleExecution();
     }
 

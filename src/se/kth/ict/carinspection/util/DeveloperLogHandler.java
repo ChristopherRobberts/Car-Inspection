@@ -10,7 +10,7 @@ import java.time.format.FormatStyle;
  * This class is meant to write error messages to an external file for developers.
  */
 public class DeveloperLogHandler {
-    private static final String DEV_ERROR_LOG = "c:/users/chris/desktop/car-rental-log.txt";
+    private static final String DEV_ERROR_LOG = "c:/users/chris/desktop/car-inspection-log.txt";
     private PrintWriter log;
 
     public DeveloperLogHandler() {
@@ -24,15 +24,15 @@ public class DeveloperLogHandler {
     /**
      * Writes to an external file describing the exception at a given time.
      *
-     * @param exeption The exception that has been thrown
+     * @param exception The exception that has been thrown
      */
-    public void writeToFile(Exception exeption) {
+    public void writeToFile(Exception exception) {
         StringBuilder logMessageBuilder = new StringBuilder();
         logMessageBuilder.append(this.createTime());
         logMessageBuilder.append(" Exception: ");
-        logMessageBuilder.append(exeption.getMessage());
+        logMessageBuilder.append(exception.getMessage());
         log.println(logMessageBuilder);
-        exeption.printStackTrace(log);
+        exception.printStackTrace(log);
     }
 
     public String createTime() {

@@ -58,7 +58,8 @@ public class Controller {
 
     /**
      * Calculates the total cost of the inspection for a particular vehicle as long as the given license number is
-     * legal.
+     * legal. Each time this happens the array list content of observer classes implementing the observer interface
+     * is passed to the observed class to know who to notify.
      *
      * @param registrationNo The registration number of the vehicle.
      * @return The cost of the inspection. Returns <code>-1</code> if there are no valid inspections for the specified
@@ -74,6 +75,11 @@ public class Controller {
         return currentInspection.calculateCost();
     }
 
+    /**
+     * Adds the observing object implementing the observer interface to the observers array list in the controller.
+     *
+     * @param obs The observing object to be added.
+     */
     public void addVehicleInspectionResultsObserver(VehicleInspectionResultsObserver obs) {
         this.vehicleInspectionResultsObservers.add(obs);
     }
