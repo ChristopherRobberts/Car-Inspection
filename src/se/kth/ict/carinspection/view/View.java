@@ -15,8 +15,8 @@ import java.time.YearMonth;
  */
 public class View {
     private Controller contr;
-    private ErrorMessageHandler errorMessageHandler = new ErrorMessageHandler();
-    private DeveloperLogHandler developerLogHandler = new DeveloperLogHandler();
+    private ErrorMessageHandler errorMessageHandler;
+    private DeveloperLogHandler developerLogHandler;
 
     /**
      * Creates a new instance
@@ -25,6 +25,9 @@ public class View {
      */
     public View(Controller contr) {
         this.contr = contr;
+        errorMessageHandler = new ErrorMessageHandler();
+        developerLogHandler = new DeveloperLogHandler();
+        this.contr.addVehicleInspectionResultsObserver(new VehiclePartResultsDisplay());
         this.sampleExecution();
     }
 

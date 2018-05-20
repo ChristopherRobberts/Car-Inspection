@@ -3,6 +3,8 @@ package se.kth.ict.carinspection.controller;
 import se.kth.ict.carinspection.integration.*;
 import se.kth.ict.carinspection.model.*;
 
+import java.util.ArrayList;
+
 /**
  * The controller class of the application. Handles all calls from the view.
  */
@@ -17,6 +19,7 @@ public class Controller {
     private InspectionResults inspectionResults;
     private Inspection currentInspection;
     private InspectionPartDTO currentInspectionPart;
+    private ArrayList<VehicleInspectionResultsObserver> vehicleInspectionResultsObservers = new ArrayList<>();
 
     /**
      * Creates a new instance.
@@ -65,9 +68,16 @@ public class Controller {
     public double calculateCost(RegistrationNoDTO registrationNo) throws IllegalLicenseNumberException {
         currentInspection = new Inspection(registrationNo, vehicleRegistry);
         inspectionResults = new InspectionResults(registrationNo);
+        for (VehicleInspectionResultsObserver obs : vehicleInspectionResultsObservers) {
+            inspectionResults.addInspectionResultsObserver(obs);
+        }
         return currentInspection.calculateCost();
     }
 
+    public void addVehicleInspectionResultsObserver(VehicleInspectionResultsObserver obs) {
+        this.vehicleInspectionResultsObservers.add(obs);
+    }
+    
     /**
      * Authorizes a payment by card.
      *

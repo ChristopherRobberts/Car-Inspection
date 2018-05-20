@@ -21,7 +21,7 @@ public class Main {
         Garage garage = new Garage();
         PaymentAuthorizationSystem paymentAuthorizationSystem = new PaymentAuthorizationSystem();
         InspectionResultsDatabase inspectionResultsDatabase = new InspectionResultsDatabase();
-        VehicleRegistry vehicleRegistry = new VehicleRegistry();
+        VehicleRegistry vehicleRegistry = new VehicleRegistry(true);
 
         Controller contr = new Controller(garage, vehicleRegistry, paymentAuthorizationSystem,
                 inspectionResultsDatabase, printer);

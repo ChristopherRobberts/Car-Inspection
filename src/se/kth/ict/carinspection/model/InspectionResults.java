@@ -3,6 +3,7 @@ package se.kth.ict.carinspection.model;
 import se.kth.ict.carinspection.integration.InspectionPartDTO;
 import se.kth.ict.carinspection.integration.RegistrationNoDTO;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +18,7 @@ public class InspectionResults {
     private static final int WIDTH_OF_RESULTS_PRINTOUT = 40;
     private final HashMap<InspectionPartDTO, Boolean> partResults;
     private final RegistrationNoDTO registrationNo;
+    private ArrayList<VehicleInspectionResultsObserver> inspectionResultsObservers = new ArrayList<>();
 
     /**
      * Creates an instance of the results of an inspection.
@@ -37,6 +39,7 @@ public class InspectionResults {
      */
     public void addPartResult(InspectionPartDTO partInspected, boolean result) {
         partResults.put(partInspected, result);
+        notifyObservers(result);
     }
 
     /**
@@ -79,5 +82,15 @@ public class InspectionResults {
      */
     public RegistrationNoDTO getRegistrationNoDTO() {
         return registrationNo;
+    }
+
+    public void addInspectionResultsObserver(VehicleInspectionResultsObserver obs) {
+        this.inspectionResultsObservers.add(obs);
+    }
+
+    private void notifyObservers(boolean result) {
+        for (VehicleInspectionResultsObserver obs : inspectionResultsObservers) {
+            obs.passedInspection(result);
+        }
     }
 }
